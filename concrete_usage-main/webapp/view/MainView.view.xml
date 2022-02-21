@@ -1,0 +1,61 @@
+<mvc:View
+    controllerName="zmmo064.controller.MainView"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form">
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="{i18n>title}">
+					<content>
+						<VBox	id="contentVBox"/>
+						<l:VerticalLayout	id="messageStripArea"
+											class="sapUiContentPadding"
+											width="100%"/>
+					</content>
+					<footer>
+						<OverflowToolbar>
+							<content>
+								<Button
+									id="messagePopOverButton"
+									icon="sap-icon://message-popup"
+									type="Emphasized"
+									text="{=${messages>/}.length}"
+									visible="{=!!${messages>/}.length}"
+									press="onMessagePopover"/>
+								<ToolbarSpacer/>
+								<Button 
+									id="barcodeScannerId"
+									text="{i18n>scan}"
+									visible="{= ${barcode>/available}
+											&amp;&amp;${fragment>/activeFragment} === 'Init'}"
+									icon="sap-icon://bar-code"
+									press="onScan"/>
+								<Button 
+									text="{i18n>getData}"
+									visible="{= ${fragment>/activeFragment} === 'Init'
+											&amp;&amp;!!${input>/ComponentMaterial}
+											&amp;&amp;!!${input>/ProductionOrder}}"
+									press="onGetData"/>
+								<Button
+									text="{i18n>reScan}"
+									visible="{= ${barcode>/available}
+											&amp;&amp;${fragment>/activeFragment} === 'DisplayData'}"
+									icon="sap-icon://bar-code"
+									press="onRescan"/>
+								<Button
+									text="{i18n>confirm}"
+									type="Accept"
+									visible="{= ${fragment>/activeFragment} === 'DisplayData'
+											&amp;&amp;!${messages>/}.length}"
+									press="onConfirm"/>
+							</content>
+						</OverflowToolbar>
+					</footer>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>
